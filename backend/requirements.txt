@@ -33,3 +33,5 @@ langchain-openai==0.3.28
 redis==6.2.0
 
 tenacity==9.1.2
+
+pwdlib[argon2]==0.3.0
