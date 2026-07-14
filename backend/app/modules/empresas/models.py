@@ -15,6 +15,7 @@ from app.db.mixins import (
 
 if TYPE_CHECKING:
     from app.modules.usuarios.models import Usuario
+    from app.modules.fiscal.solicitacoes.models import SolicitacaoEmissao
 
 
 class Empresa(
@@ -81,3 +82,8 @@ class Empresa(
         back_populates="empresa",
         lazy="selectin",
     )
+
+    solicitacoes_emissao: Mapped[list["SolicitacaoEmissao"]] = relationship(
+    back_populates="empresa",
+    lazy="selectin",
+)
