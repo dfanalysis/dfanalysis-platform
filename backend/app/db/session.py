@@ -1,22 +1,16 @@
-from collections.abc import Generator
+from app.modules.auth.models import Perfil, Permissao
+from app.modules.empresas.models import Empresa
+from app.modules.fiscal.solicitacoes.models import SolicitacaoEmissao
+from app.modules.operacoes.cases.models import OperationalCase
+from app.modules.operacoes.inbox.models import InboxMessage
+from app.modules.usuarios.models import Usuario
 
-from sqlalchemy.orm import Session, sessionmaker
-
-from app.db.database import engine
-
-
-SessionLocal = sessionmaker(
-    autocommit=False,
-    autoflush=False,
-    expire_on_commit=False,
-    bind=engine,
-)
-
-
-def get_db() -> Generator[Session, None, None]:
-    db = SessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+__all__ = [
+    "Empresa",
+    "Usuario",
+    "Perfil",
+    "Permissao",
+    "SolicitacaoEmissao",
+    "InboxMessage",
+    "OperationalCase",
+]

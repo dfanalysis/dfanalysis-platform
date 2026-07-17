@@ -1,0 +1,128 @@
+<ConsultarNfseServicoPrestadoResposta xmlns="http://www.sped.fazenda.gov.br/nfse">
+  <ListaNfse>
+    <CompNfse>
+      <NFSe versao="1.00">
+        <infNFSe Id="NFS53001081212971279000130000000000613826071783707967">
+          <xLocEmi>Brasília</xLocEmi>
+          <xLocPrestacao>Brasília</xLocPrestacao>
+          <nNFSe>6138</nNFSe>
+          <cLocIncid>5300108</cLocIncid>
+          <xLocIncid>Brasília</xLocIncid>
+          <xTribNac>Medicina.</xTribNac>
+          <xTribMun>4.01 - Medicina e biomedicina.</xTribMun>
+          <xNBS>1.2301.22.00-Serviços médicos especializados</xNBS>
+          <verAplic>ISSNET v7.7.1.0</verAplic>
+          <ambGer>1</ambGer>
+          <tpEmis>2</tpEmis>
+          <cStat>100</cStat>
+          <dhProc>2026-07-10T15:26:09-03:00</dhProc>
+          <nDFSe>6138</nDFSe>
+          <emit>
+            <CNPJ>12971279000130</CNPJ>
+            <IM>0766024100100</IM>
+            <xNome>PRIME HEALTH SERVICOS MEDICO-HOSPITALARES E PARTICIPACOES LTDA</xNome>
+            <xFant>PRIME HEALTH GROUP BRASIL</xFant>
+            <enderNac>
+              <xLgr>SRTVS QUADRA 701 BLOCO O 110 SALA 717 PARTE K</xLgr>
+              <nro>0</nro>
+              <xBairro>ASA SUL</xBairro>
+              <cMun>5300108</cMun>
+              <UF>DF</UF>
+              <CEP>70340000</CEP>
+            </enderNac>
+            <fone>6192930811</fone>
+            <email>jin.medeiros51@gmail.com</email>
+          </emit>
+          <valores>
+            <vBC>234950.39</vBC>
+            <pAliqAplic>2.00</pAliqAplic>
+            <vISSQN>4699.01</vISSQN>
+            <vTotalRet>19148.46</vTotalRet>
+            <vLiq>215801.93</vLiq>
+          </valores>
+          <xOutInf>PROCON: TEL 151- SETOR COMERCIAL SUL, QUADRA 8, BLOCO B-60, SALA 240- BRASILIA - DF</xOutInf>
+          <DPS versao="1.00">
+            <infDPS Id="DPS530010821297127900013070001000000000006138">
+              <tpAmb>1</tpAmb>
+              <dhEmi>2026-07-10T15:26:09-03:00</dhEmi>
+              <verAplic>ISSNET v7.7.1.0</verAplic>
+              <serie>70001</serie>
+              <nDPS>6138</nDPS>
+              <dCompet>2026-07-10</dCompet>
+              <tpEmit>1</tpEmit>
+              <cLocEmi>5300108</cLocEmi>
+              <prest>
+                <CNPJ>12971279000130</CNPJ>
+                <IM>0766024100100</IM>
+                <fone>6192930811</fone>
+                <email>jin.medeiros51@gmail.com</email>
+                <regTrib>
+                  <opSimpNac>1</opSimpNac>
+                  <regEspTrib>0</regEspTrib>
+                </regTrib>
+              </prest>
+              <toma>
+                <CNPJ>61590410000558</CNPJ>
+                <IM>0757742800286</IM>
+                <xNome>SOCIEDADE BENEFICENTE DE SENHORAS - HOSPITAL SIRIO LIBANES</xNome>
+                <end>
+                  <endNac>
+                    <cMun>5300108</cMun>
+                    <CEP>70200730</CEP>
+                  </endNac>
+                  <xLgr>SGAS 613 CONJUNTO E BLOCO B S/N </xLgr>
+                  <nro>0</nro>
+                  <xBairro>ASA SUL</xBairro>
+                </end>
+                <fone>6121414000</fone>
+                <email>ouvidoria@hsl.org.br</email>
+              </toma>
+              <serv>
+                <locPrest>
+                  <cLocPrestacao>5300108</cLocPrestacao>
+                </locPrest>
+                <cServ>
+                  <cTribNac>040101</cTribNac>
+                  <cTribMun>401</cTribMun>
+                  <xDescServ>Dr. RODRIGO BOVOLIN DE MEDEIROS - Referente serviços médicos prestados de ONCOLOGIA - Período: JUNHO/2026.</xDescServ>
+                  <cNBS>123012200</cNBS>
+                </cServ>
+                <infoCompl>
+                  <xInfComp>Valores Retidos: PIS	 R$ 1.527,18 	COFINS	 R$ 7.048,51 	ISS	 R$ 4.699,01 	CSLL	 R$ 2.349,50 	IR	 R$ 3.524,26 </xInfComp>
+                </infoCompl>
+              </serv>
+              <valores>
+                <vServPrest>
+                  <vServ>234950.39</vServ>
+                </vServPrest>
+                <trib>
+                  <tribMun>
+                    <tribISSQN>1</tribISSQN>
+                    <tpRetISSQN>2</tpRetISSQN>
+                    <pAliq>2.00</pAliq>
+                  </tribMun>
+                  <tribFed>
+                    <piscofins>
+                      <CST>01</CST>
+                      <tpRetPisCofins>3</tpRetPisCofins>
+                    </piscofins>
+                    <vRetIRRF>3524.26</vRetIRRF>
+                    <vRetCSLL>10925.19</vRetCSLL>
+                  </tribFed>
+                  <totTrib>
+                    <pTotTrib>
+                      <pTotTribFed>4.65</pTotTribFed>
+                      <pTotTribEst>0.00</pTotTribEst>
+                      <pTotTribMun>2.00</pTotTribMun>
+                    </pTotTrib>
+                  </totTrib>
+                </trib>
+              </valores>
+            </infDPS>
+          </DPS>
+        </infNFSe>
+      </NFSe>
+    </CompNfse>
+    <Pagina>1</Pagina>
+  </ListaNfse>
+</ConsultarNfseServicoPrestadoResposta>

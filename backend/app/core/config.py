@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     DATABASE_NAME: str
     DATABASE_USER: str
     DATABASE_PASSWORD: str
+
     DEVELOPMENT_ADMIN_PASSWORD: str = ""
 
     JWT_SECRET: str = ""
