@@ -1,6 +1,10 @@
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.modules.empresas.repository import EmpresaRepository
+from app.modules.fiscal.solicitacoes.application.factory import (
+    SolicitacaoFactory,
+)
 from app.modules.fiscal.solicitacoes.domain.services import (
     FiscalDomainService,
 )
@@ -16,19 +20,47 @@ from app.modules.fiscal.solicitacoes.schemas import (
 class CreateEmissionRequest:
     """Caso de uso responsável por criar uma solicitação de emissão."""
 
-    def __init__(self, db: Session) -> None:
+    def __init__(
+        self,
+        db: Session,
+        empresa_repository: EmpresaRepository | None = None,
+        solicitacao_repository: SolicitacaoEmissaoRepository | None = None,
+        factory: SolicitacaoFactory | None = None,
+    ) -> None:
         self.db = db
-        self.empresa_repository = EmpresaRepository(db)
-        self.solicitacao_repository = SolicitacaoEmissaoRepository(db)
+
+        self.empresa_repository = (
+            empresa_repository
+            if empresa_repository is not None
+            else EmpresaRepository(db)
+        )
+
+        self.solicitacao_repository = (
+            solicitacao_repository
+            if solicitacao_repository is not None
+            else SolicitacaoEmissaoRepository(db)
+        )
+
+        self.factory = (
+            factory
+            if factory is not None
+            else SolicitacaoFactory()
+        )
 
     def execute(
         self,
         payload: SolicitacaoEmissaoCreate,
     ) -> tuple[SolicitacaoEmissao, bool]:
         """
-        Cria uma solicitação de emissão.
+        Cria e persiste uma solicitação de emissão.
 
-        Lança uma exceção quando a chave de idempotência já tiver sido utilizada.
+        Retorna:
+            tuple[SolicitacaoEmissao, bool]:
+                A solicitação criada e o indicador de criação.
+
+        Lança:
+            Exceções de domínio quando a empresa ou os dados forem inválidos.
+            SQLAlchemyError quando ocorrer falha de persistência.
         """
 
         empresa = self.empresa_repository.get_by_id(
@@ -48,14 +80,18 @@ class CreateEmissionRequest:
                 existing_request,
             )
 
-        solicitacao = SolicitacaoEmissao(
-            empresa_id=payload.empresa_id,
-            origem=payload.origem,
-            referencia_externa=payload.referencia_externa,
-            idempotency_key=payload.idempotency_key,
-            competencia=payload.competencia,
-            descricao_servico=payload.descricao_servico,
-            valor_servico=payload.valor_servico,
-        )
+        solicitacao = self.factory.create(payload)
 
-        return self.solicitacao_repository.add(solicitacao), True
+        try:
+            solicitacao = self.solicitacao_repository.add(
+                solicitacao,
+            )
+
+            self.db.commit()
+            self.db.refresh(solicitacao)
+
+            return solicitacao, True
+
+        except SQLAlchemyError:
+            self.db.rollback()
+            raise

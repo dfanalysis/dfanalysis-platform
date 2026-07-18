@@ -2,17 +2,15 @@ from uuid import UUID
 
 from sqlalchemy.orm import Session
 
-from app.modules.fiscal.enums import StatusSolicitacao
+from app.modules.fiscal.solicitacoes.models import SolicitacaoEmissao
 from app.modules.fiscal.solicitacoes.repository import (
     SolicitacaoEmissaoRepository,
 )
-from app.modules.fiscal.solicitacoes.models import SolicitacaoEmissao
 
 
-class ListEmissionRequests:
+class GetEmissionRequest:
     """
-    Caso de uso responsável por listar solicitações de emissão
-    de uma empresa.
+    Recupera uma solicitação de emissão pelo seu identificador.
     """
 
     def __init__(
@@ -28,11 +26,8 @@ class ListEmissionRequests:
 
     def execute(
         self,
-        empresa_id: UUID,
-        *,
-        status: StatusSolicitacao | None = None,
-    ) -> list[SolicitacaoEmissao]:
-        return self.repository.list_by_empresa(
-            empresa_id=empresa_id,
-            status=status,
+        solicitacao_id: UUID,
+    ) -> SolicitacaoEmissao | None:
+        return self.repository.get_by_id(
+            solicitacao_id,
         )
