@@ -25,6 +25,9 @@ class Settings(BaseSettings):
     JWT_AUDIENCE: str = "df-analysis-ia-platform"
 
     OPENAI_API_KEY: str = ""
+    OPENAI_MODEL: str = "gpt-4.1-mini"
+    OPENAI_TIMEOUT_SECONDS: float = 30.0
+    OPENAI_MAX_RETRIES: int = 2
 
     REDIS_HOST: str = "redis"
     REDIS_PORT: int = 6379
