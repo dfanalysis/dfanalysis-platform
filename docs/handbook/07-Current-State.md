@@ -144,3 +144,78 @@ app/modules/fiscal/
     ├── repository.py
     ├── router.py
     └── schemas.py
+
+    ---
+
+# Sprint 14 — Comunicação e Interpretação
+
+## Objetivo
+
+Construir o pipeline responsável por receber comunicações, armazená-las, interpretá-las e persistir o entendimento produzido pela plataforma.
+
+---
+
+## Módulo Operações
+
+### Inbox
+
+Implementado:
+
+- InboxMessage (Aggregate Root)
+- InboxAttachment (Entity)
+- Repository
+- Schemas
+- Domain Service
+- CreateInboxMessage
+
+---
+
+### Interpreter
+
+Implementado:
+
+- InterpreterEngine (Strategy)
+- RuleEngine
+- AIEngine
+- CommunicationInterpreter
+- CommunicationInterpretation
+- Repository
+- InterpretCommunication
+
+---
+
+## Decisões Arquiteturais
+
+A IA não toma decisões de negócio.
+
+A IA produz interpretações.
+
+O domínio continua responsável pelas decisões operacionais.
+
+Foi adotado o padrão Strategy para permitir múltiplos mecanismos de interpretação.
+
+Foi criada persistência para histórico de interpretações.
+
+A plataforma passa a separar claramente:
+
+Comunicação
+
+↓
+
+Interpretação
+
+↓
+
+Operação
+
+↓
+
+Execução
+
+---
+
+## Situação Atual
+
+Concluída a infraestrutura de recepção e interpretação de comunicações.
+
+A plataforma está preparada para iniciar o domínio OperationalRequest.

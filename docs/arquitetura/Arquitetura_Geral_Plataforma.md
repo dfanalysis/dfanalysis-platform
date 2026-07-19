@@ -418,3 +418,618 @@ Serviços → Banco
 Serviços → Integrações
 
 Essa separação reduz dependências e facilita substituições futuras.
+
+---
+
+# 7. Ecossistema de Agentes
+
+A Plataforma DF Analysis IA será composta por agentes especializados.
+
+Cada agente será responsável por um domínio específico de negócio, possuindo autonomia operacional, porém compartilhando infraestrutura, banco de dados, autenticação e mecanismos de integração.
+
+Os agentes deverão comunicar-se através de APIs, workflows e eventos, evitando dependências diretas.
+
+---
+
+## Agente Emissor de NFS-e
+
+Status: Em desenvolvimento
+
+Objetivo:
+
+Automatizar todo o processo de emissão de Notas Fiscais de Serviços Eletrônicas.
+
+Principais responsabilidades:
+
+- Receber solicitações;
+- Validar dados;
+- Consultar integrações;
+- Gerar RPS;
+- Emitir NFS-e;
+- Consultar situação;
+- Cancelar notas;
+- Registrar auditoria;
+- Notificar usuários.
+
+---
+
+## Agente Financeiro
+
+Status: Planejado
+
+Objetivo:
+
+Automatizar os processos financeiros da empresa.
+
+Responsabilidades:
+
+- Fluxo de caixa;
+- Contas a pagar;
+- Contas a receber;
+- Conciliação bancária;
+- Cobrança automática;
+- Emissão de boletos;
+- PIX;
+- Relatórios financeiros.
+
+---
+
+## Agente Comercial
+
+Status: Planejado
+
+Objetivo:
+
+Gerenciar todo o processo comercial.
+
+Responsabilidades:
+
+- CRM;
+- Leads;
+- Funil de vendas;
+- Propostas;
+- Contratos;
+- Follow-up;
+- Indicadores comerciais.
+
+---
+
+## Agente Atendimento
+
+Status: Planejado
+
+Objetivo:
+
+Automatizar o atendimento ao cliente.
+
+Responsabilidades:
+
+- WhatsApp;
+- Chat;
+- FAQ Inteligente;
+- Agendamento;
+- Encaminhamento;
+- Atendimento híbrido.
+
+---
+
+## Agente Contratos
+
+Status: Planejado
+
+Objetivo:
+
+Gerenciar contratos e documentos.
+
+Responsabilidades:
+
+- Geração de contratos;
+- Assinaturas eletrônicas;
+- Versionamento;
+- Renovação;
+- Controle documental.
+
+---
+
+## Agente RH
+
+Status: Planejado
+
+Objetivo:
+
+Automatizar processos administrativos relacionados a colaboradores.
+
+Responsabilidades:
+
+- Documentação;
+- Admissões;
+- Desligamentos;
+- Controle de treinamentos;
+- Gestão documental.
+
+---
+
+## Agente Gerencial
+
+Status: Planejado
+
+Objetivo:
+
+Gerar inteligência para tomada de decisão.
+
+Responsabilidades:
+
+- Dashboards;
+- KPIs;
+- Indicadores;
+- Relatórios executivos;
+- Alertas.
+
+---
+
+## Agente IA
+
+Status: Planejado
+
+Objetivo:
+
+Disponibilizar serviços inteligentes para todos os demais agentes.
+
+Responsabilidades:
+
+- Classificação;
+- OCR;
+- Extração de dados;
+- RAG;
+- Geração de texto;
+- Resumos;
+- Análise documental;
+- Apoio à decisão.
+
+---
+
+## Comunicação entre Agentes
+
+Os agentes deverão compartilhar informações utilizando mecanismos padronizados.
+
+Preferencialmente:
+
+- APIs REST;
+- Eventos;
+- Webhooks;
+- Banco de dados compartilhado;
+- Workflows n8n.
+
+Nenhum agente deverá acessar diretamente a lógica interna de outro.
+
+Toda comunicação deverá ocorrer através de interfaces bem definidas.
+
+---
+
+## Evolução
+
+Novos agentes poderão ser incorporados sem necessidade de alteração estrutural da plataforma.
+
+Cada agente deverá respeitar os princípios arquiteturais definidos neste documento.
+
+---
+
+# 8. Arquitetura de Dados
+
+O PostgreSQL será o banco de dados transacional oficial da Plataforma DF Analysis IA.
+
+Sua estrutura foi projetada para suportar crescimento contínuo, múltiplos módulos, integração entre agentes e futura operação como plataforma SaaS.
+
+---
+
+## Princípios
+
+A arquitetura de dados seguirá os seguintes princípios:
+
+- Integridade referencial.
+- Normalização dos dados.
+- Auditoria completa.
+- Escalabilidade.
+- Reutilização.
+- Versionamento por migrations.
+- Separação por domínios de negócio.
+
+---
+
+## Organização por Schemas
+
+Cada domínio da plataforma possuirá seu próprio schema.
+
+Schemas atualmente definidos:
+
+### core
+
+Entidades compartilhadas.
+
+Exemplos:
+
+- empresa
+- usuario
+- perfil
+- usuario_perfil
+- parametro
+- credencial
+- integracao
+
+---
+
+### fiscal
+
+Processos fiscais.
+
+Exemplos:
+
+- prestador
+- tomador
+- servico
+- rps
+- nfse
+
+---
+
+### financeiro
+
+Processos financeiros.
+
+Exemplos:
+
+- contas_receber
+- contas_pagar
+- fluxo_caixa
+- conciliacao
+
+---
+
+### comercial
+
+CRM.
+
+Exemplos:
+
+- cliente
+- lead
+- oportunidade
+- proposta
+
+---
+
+### workflow
+
+Controle operacional.
+
+Exemplos:
+
+- workflow_execucao
+- fila
+- agendamento
+- webhook
+
+---
+
+### auditoria
+
+Histórico completo.
+
+Exemplos:
+
+- auditoria
+- log_evento
+- log_integracao
+
+---
+
+### integracao
+
+Persistência das integrações externas.
+
+Exemplos:
+
+- endpoint
+- token
+- certificado
+- configuracao_api
+
+---
+
+## Modelo Multiempresa
+
+Toda a plataforma será multiempresa.
+
+Todas as entidades de negócio deverão possuir referência para:
+
+empresa_id
+
+Essa estratégia permitirá atender diversos clientes utilizando a mesma infraestrutura.
+
+---
+
+## Convenções
+
+### Chaves primárias
+
+Todas as tabelas utilizarão:
+
+id UUID
+
+---
+
+### Auditoria
+
+Sempre que aplicável:
+
+created_at
+
+updated_at
+
+created_by
+
+updated_by
+
+---
+
+### Exclusão lógica
+
+Sempre que necessário:
+
+deleted_at
+
+deleted_by
+
+A exclusão física deverá ser evitada.
+
+---
+
+### Índices
+
+Toda chave estrangeira deverá possuir índice.
+
+Campos frequentemente pesquisados também deverão ser indexados.
+
+---
+
+### Constraints
+
+Sempre utilizar:
+
+PRIMARY KEY
+
+FOREIGN KEY
+
+UNIQUE
+
+CHECK
+
+NOT NULL
+
+Evitar validações apenas na aplicação.
+
+---
+
+### Triggers
+
+Sempre reutilizar funções globais.
+
+Exemplo:
+
+fn_update_updated_at()
+
+Evitar duplicação de código.
+
+---
+
+## Versionamento
+
+Toda alteração estrutural deverá ocorrer exclusivamente através de migrations.
+
+Nunca alterar tabelas manualmente em produção.
+
+---
+
+## Seeds
+
+Os dados iniciais deverão ser mantidos em scripts independentes.
+
+Exemplos:
+
+- perfis padrão
+- parâmetros
+- configurações iniciais
+
+---
+
+## Evolução
+
+Novas tabelas deverão respeitar esta arquitetura.
+
+Alterações estruturais deverão preservar compatibilidade sempre que possível.
+
+Mudanças incompatíveis deverão gerar nova migration documentada.
+
+---
+
+# 9. Arquitetura dos Workflows
+
+Os workflows representam a camada operacional da Plataforma DF Analysis IA.
+
+Todos os processos automatizados deverão ser implementados como workflows padronizados, versionados e documentados.
+
+O n8n será utilizado como motor de orquestração.
+
+---
+
+## Identificação
+
+Cada workflow possuirá um identificador único.
+
+Padrão:
+
+WF001
+
+WF002
+
+WF003
+
+...
+
+A numeração será sequencial e nunca reutilizada.
+
+---
+
+## Estrutura
+
+Cada workflow deverá possuir:
+
+workflow.json
+
+README.md
+
+inputs.json
+
+outputs.json
+
+prompts.md
+
+CHANGELOG.md
+
+---
+
+## README
+
+O README deverá conter obrigatoriamente:
+
+- objetivo;
+- responsável;
+- versão;
+- dependências;
+- sistemas envolvidos;
+- fluxograma;
+- regras de negócio;
+- tratamento de erros.
+
+---
+
+## Inputs
+
+Toda entrada deverá ser documentada.
+
+Exemplo:
+
+- origem;
+- formato;
+- obrigatoriedade;
+- validações.
+
+---
+
+## Outputs
+
+Toda saída deverá ser documentada.
+
+Exemplo:
+
+- sucesso;
+- erro;
+- logs;
+- notificações.
+
+---
+
+## Prompts
+
+Sempre que houver IA.
+
+Os prompts deverão permanecer separados do workflow.
+
+Nunca embutidos diretamente no JSON do n8n.
+
+---
+
+## Versionamento
+
+Toda alteração relevante deverá atualizar:
+
+CHANGELOG.md
+
+---
+
+## Tratamento de Erros
+
+Todos os workflows deverão prever:
+
+- timeout;
+- indisponibilidade externa;
+- erro de autenticação;
+- erro de validação;
+- erro de integração;
+- repetição controlada;
+- rollback quando aplicável.
+
+---
+
+## Auditoria
+
+Todos os workflows deverão registrar:
+
+- início;
+- término;
+- duração;
+- usuário;
+- empresa;
+- resultado;
+- erro;
+- payload resumido.
+
+---
+
+## Logs
+
+Os logs deverão ser classificados em:
+
+INFO
+
+WARNING
+
+ERROR
+
+CRITICAL
+
+---
+
+## Reutilização
+
+Fluxos comuns deverão ser transformados em Subworkflows.
+
+Exemplos:
+
+Autenticação
+
+Envio de e-mail
+
+Registro de Auditoria
+
+Consulta de Credenciais
+
+Criptografia
+
+Notificações
+
+---
+
+## Boas Práticas
+
+Evitar nós duplicados.
+
+Evitar lógica complexa dentro de IFs.
+
+Evitar SQL espalhado.
+
+Centralizar configurações.
+
+Padronizar nomenclaturas.
+
+Documentar todas as alterações.

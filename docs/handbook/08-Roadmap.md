@@ -38,3 +38,41 @@ Recebimento
 Repasse médico
     ↓
 Auditoria e indicadores
+
+---
+
+# Sprint 14 — Concluída
+
+Entrega:
+
+- Comunicação
+- Inbox
+- Attachments
+- Strategy Pattern
+- Rule Engine
+- AI Engine
+- Communication Interpreter
+- Communication Interpretation
+- Persistência das interpretações
+
+---
+
+# Sprint 15
+
+Objetivo:
+
+Construção do domínio central da plataforma.
+
+OperationalRequest.
+
+Responsabilidades:
+
+- representar uma unidade de trabalho;
+- receber interpretações;
+- gerar demandas operacionais;
+- integrar Fiscal;
+- integrar Financeiro;
+- integrar Repasse;
+- controlar ciclo de vida operacional.
+
+Será o principal Aggregate Root da Plataforma DF Analysis IA.
