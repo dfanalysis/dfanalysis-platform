@@ -69,3 +69,16 @@ class SolicitacaoEmissaoRepository:
         self.db.add(solicitacao)
         self.db.flush()
         return solicitacao
+
+    def update(
+        self,
+        solicitacao: SolicitacaoEmissao,
+    ) -> SolicitacaoEmissao:
+        """
+        Atualiza uma solicitação já persistida.
+
+        O objeto recebido deve estar associado à sessão atual.
+        """
+
+        self.db.flush()
+        return solicitacao
