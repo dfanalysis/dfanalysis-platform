@@ -1,5 +1,6 @@
 from app.modules.auth.models import Perfil, Permissao
 from app.modules.empresas.models import Empresa
+from app.modules.fiscal.rps.models import Rps
 from app.modules.fiscal.solicitacoes.models import SolicitacaoEmissao
 from app.modules.operacoes.cases.models import OperationalCase
 from app.modules.operacoes.inbox.models import InboxMessage
@@ -12,6 +13,7 @@ __all__ = [
     "Perfil",
     "Permissao",
     "SolicitacaoEmissao",
+    "Rps",
     "InboxMessage",
     "OperationalCase",
 ]

@@ -106,3 +106,16 @@ class SolicitacaoEmissao(
         back_populates="solicitacoes_emissao",
         lazy="joined",
     )
+
+    rps = relationship(
+    "Rps",
+    back_populates="solicitacao",
+    uselist=False,
+)
+    
+    solicitacao = relationship(
+    "SolicitacaoEmissao",
+    back_populates="rps",
+)
+
+empresa = relationship("Empresa")
