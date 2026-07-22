@@ -11,10 +11,15 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
 from app.db.mixins import SoftDeleteMixin, TimestampMixin, UUIDPrimaryKeyMixin
-from app.modules.fiscal.enums import OrigemSolicitacao, StatusSolicitacao
+from app.modules.fiscal.enums import (
+    OrigemSolicitacao,
+    StatusSolicitacao,
+    TipoDocumentoTomador,
+)
 
 if TYPE_CHECKING:
     from app.modules.empresas.models import Empresa
+    from app.modules.fiscal.rps.models import Rps
 
 
 class SolicitacaoEmissao(
@@ -86,6 +91,33 @@ class SolicitacaoEmissao(
         nullable=True,
     )
 
+    tomador_tipo_documento: Mapped[TipoDocumentoTomador] = mapped_column(
+        SQLEnum(
+            TipoDocumentoTomador,
+            name="tipo_documento_tomador",
+            schema="fiscal",
+            values_callable=lambda enum_class: [
+                item.value for item in enum_class
+            ],
+        ),
+        nullable=False,
+    )
+
+    tomador_documento: Mapped[str] = mapped_column(
+        String(14),
+        nullable=False,
+    )
+
+    tomador_nome: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False,
+    )
+
+    medico_nome: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
     competencia: Mapped[date] = mapped_column(
         Date,
         nullable=False,
@@ -107,15 +139,7 @@ class SolicitacaoEmissao(
         lazy="joined",
     )
 
-    rps = relationship(
-    "Rps",
-    back_populates="solicitacao",
-    uselist=False,
-)
-    
-    solicitacao = relationship(
-    "SolicitacaoEmissao",
-    back_populates="rps",
-)
-
-empresa = relationship("Empresa")
+    rps: Mapped["Rps | None"] = relationship(
+        back_populates="solicitacao",
+        uselist=False,
+    )

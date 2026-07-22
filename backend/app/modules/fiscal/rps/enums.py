@@ -3,6 +3,7 @@ from enum import Enum
 
 class StatusRps(str, Enum):
     GERADO = "GERADO"
+    PENDENTE_ENVIO = "PENDENTE_ENVIO"
     EM_LOTE = "EM_LOTE"
     ENVIADO = "ENVIADO"
     PROCESSADO = "PROCESSADO"

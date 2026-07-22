@@ -26,3 +26,8 @@ class StatusSolicitacao(str, Enum):
     REJEITADA = "rejeitada"
     CANCELADA = "cancelada"
     FALHA = "falha"
+
+
+class TipoDocumentoTomador(str, Enum):
+    CPF = "CPF"
+    CNPJ = "CNPJ"

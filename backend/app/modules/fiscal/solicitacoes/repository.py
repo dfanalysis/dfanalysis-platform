@@ -19,7 +19,9 @@ class SolicitacaoEmissaoRepository:
     ) -> SolicitacaoEmissao | None:
         statement = select(SolicitacaoEmissao).where(
             SolicitacaoEmissao.id == solicitacao_id,
+            SolicitacaoEmissao.deleted_at.is_(None),
         )
+
         return self.db.scalar(statement)
 
     def get_by_correlation_id(
@@ -29,6 +31,7 @@ class SolicitacaoEmissaoRepository:
         statement = select(SolicitacaoEmissao).where(
             SolicitacaoEmissao.correlation_id == correlation_id,
         )
+
         return self.db.scalar(statement)
 
     def get_by_idempotency_key(
@@ -38,6 +41,7 @@ class SolicitacaoEmissaoRepository:
         statement = select(SolicitacaoEmissao).where(
             SolicitacaoEmissao.idempotency_key == idempotency_key,
         )
+
         return self.db.scalar(statement)
 
     def list_by_empresa(
@@ -68,6 +72,7 @@ class SolicitacaoEmissaoRepository:
     ) -> SolicitacaoEmissao:
         self.db.add(solicitacao)
         self.db.flush()
+
         return solicitacao
 
     def update(
@@ -81,4 +86,5 @@ class SolicitacaoEmissaoRepository:
         """
 
         self.db.flush()
+
         return solicitacao
